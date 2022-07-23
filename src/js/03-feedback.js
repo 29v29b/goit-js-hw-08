@@ -13,12 +13,17 @@ populateText()
 function onFormSubmit(event) {
     event.preventDefault();
     console.log('Sending form');
+    populateText();
 
     event.currentTarget.reset();
     localStorage.removeItem(LOCALSTORAGE_KEY)
 }
 
 function onInput(event) {
+    if(null == event
+        || null == event.currentTarget){
+        return
+    }
 
    let previous = localStorage.getItem(LOCALSTORAGE_KEY)
     if(null != previous) {
