@@ -7,7 +7,6 @@ textarea: document.querySelector(".feedback-form textarea")
 }
 const LOCALSTORAGE_KEY = "feedback-form-state"
 
-
 populateText()
 
 function onFormSubmit(event) {
@@ -19,39 +18,17 @@ function onFormSubmit(event) {
     localStorage.removeItem(LOCALSTORAGE_KEY)
 }
 
-function onInput(event) {
-    if(null == event
-        || null == event.currentTarget){
-        return
-    }
-
-   let previous = localStorage.getItem(LOCALSTORAGE_KEY)
-    if(null != previous) {
-        
-        var data = JSON.parse(previous);
-        
-    } else {
-        var data = {
-            email: '',
-            message: '',
-        };
-    }
-    
-    if(event.currentTarget.name === 'email') {
-        data.email = event.currentTarget.value
-    }
-    
-    if(event.currentTarget.name === 'message') {
-        data.message = event.currentTarget.value
-    }
-
+function onInput(event) {  
+    let data = {
+        email: refs.input.value,
+        message: refs.textarea.value,
+    };
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(data))
 }
 
-
 refs.form.addEventListener('submit', onFormSubmit);
-refs.input.addEventListener('input', throttle(onInput,500));
-refs.textarea.addEventListener('input', throttle(onInput,500));
+refs.input.addEventListener('input', throttle(onInput, 500));
+refs.textarea.addEventListener('input', throttle(onInput, 500));
 
 document.addEventListener('DOMContentLoaded', () => {
     if(localStorage.getItem(LOCALSTORAGE_KEY) != null) {
@@ -62,8 +39,5 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function populateText() {
-
-    console.log(
-        JSON.parse(
-            localStorage.getItem(LOCALSTORAGE_KEY)));
+    console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
 }
