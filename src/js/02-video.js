@@ -15,6 +15,7 @@ const onPlay = function(data) {
 player.on('timeupdate', throttle(onPlay, 1000));
 
 document.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem(TIME_KEY) != null) {
 
     player.setCurrentTime(localStorage.getItem(TIME_KEY)).then(function(seconds) {})
     .catch(function(error) {
@@ -26,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             default:
                 alert(error.name)
                 break;
-        }
-    });
+            }
+        
+        });
+    }
 }) 
